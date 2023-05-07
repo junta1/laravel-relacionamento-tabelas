@@ -42,7 +42,7 @@ Route::get('/many-to-many', function(){
     // $user->permissions()->attach(1);
 
     // Remove permissão
-    $user->permissions()->detach(1);
+    // $user->permissions()->detach(1);
 
     $user->refresh();
 
