@@ -51,6 +51,8 @@ class User extends Authenticatable
     public function permissions()
     {
         //Relacionamento N:N
-        return $this->belongsToMany(Permission::class, 'permission_user');
+        return $this->belongsToMany(Permission::class, 'permission_user')
+            //retornar valores da tabela pivot: permission_user
+            ->withPivot('active', 'created_at');
     }
 }
