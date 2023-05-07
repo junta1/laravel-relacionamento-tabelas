@@ -47,4 +47,10 @@ class User extends Authenticatable
         //Relacionamento 1:1
         return $this->hasOne(Preference::class);
     }
+
+    public function permissions()
+    {
+        //Relacionamento N:N
+        return $this->belongsToMany(Permission::class, 'permission_user');
+    }
 }

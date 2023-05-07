@@ -2,6 +2,7 @@
 
 use App\Models\{
     Course,
+    Permission,
     User,
 };
 
@@ -17,6 +18,36 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/many-to-many', function(){
+    // dd(Permission::create(['name' => 'menu_03']));
+
+    $user = User::with('permissions')->find(1);
+
+    $permission = Permission::find(1);
+    // $user->permissions()->save($permission);
+    // $user->permissions()->saveMany([
+    //     Permission::find(1),
+    //     Permission::find(2),
+    //     Permission::find(3),
+    // ]);
+
+    // Deleta todas com valores diferentes da nova permissão
+    // Adiciona uma nova permissão
+    // Não duplica valores, caso nova permissão já exista
+    // $user->permissions()->sync([1,2,3]);
+    // $user->permissions()->sync($permission);
+
+    // Duplica valores
+    // $user->permissions()->attach(1);
+
+    // Remove permissão
+    $user->permissions()->detach(1);
+
+    $user->refresh();
+
+    dd($user->permissions);
+});
 
 Route::get('/one-to-many', function(){
 
