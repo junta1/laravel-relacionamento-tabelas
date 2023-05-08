@@ -16,4 +16,9 @@ class Course extends Model
         //Relacionamento 1:N
         return $this->hasMany(Module::class);
     }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
 }

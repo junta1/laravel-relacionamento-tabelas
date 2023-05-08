@@ -16,4 +16,9 @@ class Lesson extends Model
         //Relacionamento 1:N inverso
         return $this->belongsTo(Module::class);
     }
+
+    public function comments()
+    {
+        return $this->morphMany(Comment::class, 'commentable');
+    }
 }

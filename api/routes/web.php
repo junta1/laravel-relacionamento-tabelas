@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\{
+    Comment,
     Course,
     Image,
     Permission,
@@ -20,12 +21,28 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/one-to-one-polymorphic', function(){
+Route::get('/one-to-many-polymorphic', function () {
+
+    $course = Course::first();
+
+    // $course->comments()->create([
+    //     'subject' => 'Novo Comentário 2',
+    //     'content' => 'Apenas 2 um comentário legal'
+    // ]);
+
+    // dd($course->comments);
+
+    $comment = Comment::find(1);
+
+    dd($comment->commentable);
+});
+
+Route::get('/one-to-one-polymorphic', function () {
     $user = User::first();
 
     $data = ['path' => 'path/nome-image2.png'];
 
-    if($user->image){
+    if ($user->image) {
         $user->image()->update($data);
         dd($user->image->path);
     }
@@ -36,7 +53,7 @@ Route::get('/one-to-one-polymorphic', function(){
     dd($user->image->path);
 });
 
-Route::get('/many-to-many-pivot', function(){
+Route::get('/many-to-many-pivot', function () {
 
     $user = User::with('permissions')->find(1);
     $user->permissions()->attach([
@@ -44,12 +61,12 @@ Route::get('/many-to-many-pivot', function(){
         3 => ['active' => false],
     ]);
 
-    foreach($user->permissions as $permission){
+    foreach ($user->permissions as $permission) {
         echo "Aula {$permission->name} - {$permission->pivot->active} <br>";
     }
 });
 
-Route::get('/many-to-many', function(){
+Route::get('/many-to-many', function () {
     // dd(Permission::create(['name' => 'menu_03']));
 
     $user = User::with('permissions')->find(1);
@@ -79,7 +96,7 @@ Route::get('/many-to-many', function(){
     dd($user->permissions);
 });
 
-Route::get('/one-to-many', function(){
+Route::get('/one-to-many', function () {
 
     // $course = Course::create([
     //     'name' => 'Curso de Laravel'
@@ -90,10 +107,10 @@ Route::get('/one-to-many', function(){
     echo $course->name;
     echo '<br>';
 
-    foreach($course->modules as $module){
+    foreach ($course->modules as $module) {
         echo "Módulo {$module->name} <br>";
 
-        foreach($module->lessons as $lesson){
+        foreach ($module->lessons as $lesson) {
             echo "Aula {$lesson->name} <br>";
         }
     }
@@ -109,18 +126,18 @@ Route::get('/one-to-many', function(){
     dd($modules);
 });
 
-Route::get('/one-to-one', function(){
+Route::get('/one-to-one', function () {
     $user = User::first();
 
     $data = [
         'background_color' => '#000',
     ];
 
-    if($user->preference){
+    if ($user->preference) {
         $user->preference()->update($data);
     }
 
-    if(empty($user->preference)){
+    if (empty($user->preference)) {
         $user->preference()->create($data);
     }
 
