@@ -4,4 +4,4 @@ Nesse curso você vai aprender explorar ao máximo os recursos de relacionamento
 
 ## Docker permissão usuário local
 
-docker exec -it -u $(id -u):$(id -g) laravel-banco-dados-php-fpm-1 bash
+`docker exec -it -u $(id -u):$(id -g) laravel-banco-dados-php-fpm-1 bash`
