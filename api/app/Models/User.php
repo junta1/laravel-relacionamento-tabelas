@@ -61,4 +61,10 @@ class User extends Authenticatable
         //Model + NameRelationship
         return $this->morphOne(Image::class, 'imageable');
     }
+
+    public function tags()
+    {
+        //Model + NameRelationship
+        return $this->morphToMany(Tag::class, 'taggable');
+    }
 }

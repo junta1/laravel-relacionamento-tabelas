@@ -5,6 +5,7 @@ use App\Models\{
     Course,
     Image,
     Permission,
+    Tag,
     User,
 };
 
@@ -20,6 +21,21 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::get('/many-to-many-polymorphic', function () {
+
+    $user = User::first();
+
+    // Tag::create(['name' => 'tag1', 'color' => 'blue']);
+    // Tag::create(['name' => 'tag2', 'color' => 'red']);
+    // Tag::create(['name' => 'tag3', 'color' => 'green']);
+
+    // $user->tags()->attach(2);
+    $tag = Tag::where('name', 'tag1')->first();
+
+    dd($tag->users);
+
+});
 
 Route::get('/one-to-many-polymorphic', function () {
 
