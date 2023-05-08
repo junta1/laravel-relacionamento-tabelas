@@ -55,4 +55,10 @@ class User extends Authenticatable
             //retornar valores da tabela pivot: permission_user
             ->withPivot('active', 'created_at');
     }
+
+    public function image()
+    {
+        //Model + NameRelationship
+        return $this->morphOne(Image::class, 'imageable');
+    }
 }
